@@ -12,7 +12,8 @@ from backend.settings import Settings
 
 
 def fake_renderer(job, update):
-    update(job, status="detecting", progress=0.5, frames=1, detection_count=1)
+    update(job, status="detecting", progress=0.5, frames=1, detection_count=1,
+           breed_crop_count=1, breed_labeled_count=1)
     (job.directory / "result.mp4").write_bytes(b"fake rendered video")
     (job.directory / "yolo-settings").mkdir()
     update(job, status="rendering", progress=None)
@@ -51,8 +52,18 @@ class APITests(unittest.TestCase):
             self.assertEqual(self.client.request(method, path).status_code, 401)
         self.assertEqual(self.client.get("/health", headers={"Authorization": "Bearer wrong"}).status_code, 401)
 
+    def test_health_reports_configured_gpu(self):
+        response = self.client.get("/health", headers=self.headers)
+        self.assertEqual(response.json()["device"], "cuda:0")
+        self.assertEqual(response.json()["imgsz"], 960)
+        self.assertEqual(response.json()["pipeline"], "dog_boxes_then_breed_crops")
+        self.assertFalse(response.json()["breed_weights_available"])
+
     def test_full_lifecycle_and_range_playback(self):
         job_id = self.ready_job()
+        metadata = self.client.get(f"/jobs/{job_id}", headers=self.headers).json()
+        self.assertEqual(metadata["breed_crop_count"], 1)
+        self.assertEqual(metadata["breed_labeled_count"], 1)
         result = self.client.get(f"/jobs/{job_id}/video", headers=self.headers)
         self.assertEqual(result.content, b"fake rendered video")
         self.assertEqual(result.headers["cache-control"], "no-store")

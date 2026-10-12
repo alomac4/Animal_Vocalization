@@ -31,6 +31,8 @@ class Job:
     progress: float | None = None
     error: str | None = None
     detection_count: int = 0
+    breed_crop_count: int = 0
+    breed_labeled_count: int = 0
     frames: int = 0
     expires_at: float | None = None
     created_at: float = field(default_factory=time.time)
@@ -41,6 +43,7 @@ class Job:
     def payload(self) -> dict:
         return {"id": self.id, "status": self.status, "progress": self.progress,
                 "error": self.error, "detection_count": self.detection_count,
+                "breed_crop_count": self.breed_crop_count, "breed_labeled_count": self.breed_labeled_count,
                 "frames": self.frames, "expires_at": self.expires_at,
                 "video_path": f"/jobs/{self.id}/video" if self.status == "ready" else None}
 
@@ -158,12 +161,16 @@ class JobManager:
     def render(self, job: Job, update: Callable) -> None:
         import imageio_ffmpeg
 
+        if not self.settings.breed_weights or not self.settings.breed_weights.is_file():
+            raise RuntimeError("Breed checkpoint missing. Run backend/configure.py before processing.")
         command = [str(self.settings.inference_python), str(Path(__file__).with_name("worker.py")),
                    "--input", str(job.directory / "input.video"), "--output", str(job.directory / "result.mp4"),
                    "--weights", str(self.settings.weights), "--ffmpeg", imageio_ffmpeg.get_ffmpeg_exe(),
-                   "--max-duration", str(self.settings.max_duration_seconds)]
+                   "--max-duration", str(self.settings.max_duration_seconds),
+                   "--device", self.settings.device, "--imgsz", str(self.settings.imgsz),
+                   "--breed-weights", str(self.settings.breed_weights), "--breed-conf", str(self.settings.breed_conf)]
         import os
-        env = dict(os.environ, CUDA_VISIBLE_DEVICES="", OMP_NUM_THREADS="2", MKL_NUM_THREADS="2",
+        env = dict(os.environ, OMP_NUM_THREADS="2", MKL_NUM_THREADS="2",
                    PYTHONIOENCODING="utf-8", YOLO_CONFIG_DIR=str(job.directory / "yolo-settings"))
         events: queue.Queue = queue.Queue()
         with (job.directory / "worker.log").open("w", encoding="utf-8") as log:
@@ -186,7 +193,8 @@ class JobManager:
                             failure = event["error"]
                         else:
                             update(job, **{key: event[key] for key in
-                                           ("status", "progress", "frames", "detection_count") if key in event})
+                                           ("status", "progress", "frames", "detection_count",
+                                            "breed_crop_count", "breed_labeled_count") if key in event})
                     except queue.Empty:
                         if process.poll() is not None and not reader.is_alive():
                             break

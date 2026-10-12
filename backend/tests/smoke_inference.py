@@ -1,4 +1,4 @@
-"""Live baseline inference + H.264/audio integration check using a generated clip."""
+"""Live configured GPU inference + H.264/audio integration check using a generated clip."""
 import os
 import subprocess
 import tempfile
@@ -32,6 +32,9 @@ def main():
         config = replace(settings, runtime=root / "jobs")
         headers = {"Authorization": f"Bearer {config.token}", "Content-Type": "application/octet-stream"}
         with TestClient(create_app(config)) as client:
+            health = client.get("/health", headers=headers).json()
+            assert health["device"].startswith("cuda:"), health
+            assert health["breed_weights_available"] and health["pipeline"] == "dog_boxes_then_breed_crops", health
             response = client.post("/jobs", content=source.read_bytes(), headers=headers)
             assert response.status_code == 202, response.text
             job_id = response.json()["id"]
@@ -43,6 +46,8 @@ def main():
                 time.sleep(0.3)
             assert result["status"] == "ready", result
             assert result["detection_count"] > 0, result
+            assert result["breed_crop_count"] == result["detection_count"], result
+            assert 0 <= result["breed_labeled_count"] <= result["breed_crop_count"], result
             video = client.get(f"/jobs/{job_id}/video", headers=headers)
             assert video.status_code == 200
             output = root / "output.mp4"
@@ -58,7 +63,9 @@ def main():
                            env=dict(os.environ, CUDA_VISIBLE_DEVICES=""))
             assert client.delete(f"/jobs/{job_id}", headers=headers).status_code == 204
             assert client.get(f"/jobs/{job_id}", headers=headers).status_code == 404
-            print(f"PASS: {result['frames']} frames, {result['detection_count']} box detections, H.264 + AAC, download and deletion.")
+            print(f"PASS on {config.device}: {result['frames']} frames, {result['detection_count']} dog boxes, "
+                  f"{result['breed_crop_count']} breed crops, {result['breed_labeled_count']} breed-labeled crops, "
+                  "H.264 + AAC, download and deletion.")
 
 
 if __name__ == "__main__":

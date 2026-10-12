@@ -55,7 +55,12 @@ def create_app(settings: Settings | None = None, renderer=None) -> FastAPI:
 
     @app.get("/health", dependencies=[Depends(authenticate)])
     def health():
-        return {"status": "ok", "model": config.model_label, "device": "cpu",
+        return {"status": "ok", "model": config.model_label, "device": config.device,
+                "imgsz": config.imgsz,
+                "pipeline": "dog_boxes_then_breed_crops",
+                "breed_enabled": config.breed_weights is not None,
+                "breed_conf": config.breed_conf,
+                "breed_weights_available": bool(config.breed_weights and config.breed_weights.is_file()),
                 "max_upload_bytes": config.max_upload_bytes,
                 "max_duration_seconds": config.max_duration_seconds,
                 "retention_seconds": config.retention_seconds,
