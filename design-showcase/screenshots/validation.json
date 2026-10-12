@@ -1,0 +1,1123 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "stage": "upload",
+      "documentWidth": 305,
+      "viewportWidth": 305,
+      "visibleStates": [
+        "app-state upload-state",
+        "app-state upload-state",
+        "app-state upload-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 702,
+          "scrollHeight": 702
+        },
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 751,
+          "scrollHeight": 751
+        },
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 719,
+          "scrollHeight": 719
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 320,
+      "stage": "processing",
+      "documentWidth": 305,
+      "viewportWidth": 305,
+      "visibleStates": [
+        "app-state processing-state",
+        "app-state processing-state",
+        "app-state processing-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 737,
+          "scrollHeight": 737
+        },
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 777,
+          "scrollHeight": 777
+        },
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 737,
+          "scrollHeight": 737
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 320,
+      "stage": "result",
+      "documentWidth": 305,
+      "viewportWidth": 305,
+      "visibleStates": [
+        "app-state result-state",
+        "app-state result-state",
+        "app-state result-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 799,
+          "scrollHeight": 799
+        },
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 818,
+          "scrollHeight": 818
+        },
+        {
+          "width": 265,
+          "scrollWidth": 265,
+          "height": 799,
+          "scrollHeight": 799
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 390,
+      "stage": "upload",
+      "documentWidth": 375,
+      "viewportWidth": 375,
+      "visibleStates": [
+        "app-state upload-state",
+        "app-state upload-state",
+        "app-state upload-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 715,
+          "scrollHeight": 715
+        },
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 769,
+          "scrollHeight": 769
+        },
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 732,
+          "scrollHeight": 732
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 390,
+      "stage": "processing",
+      "documentWidth": 375,
+      "viewportWidth": 375,
+      "visibleStates": [
+        "app-state processing-state",
+        "app-state processing-state",
+        "app-state processing-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 749,
+          "scrollHeight": 749
+        },
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 790,
+          "scrollHeight": 790
+        },
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 749,
+          "scrollHeight": 749
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 390,
+      "stage": "result",
+      "documentWidth": 375,
+      "viewportWidth": 375,
+      "visibleStates": [
+        "app-state result-state",
+        "app-state result-state",
+        "app-state result-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 812,
+          "scrollHeight": 812
+        },
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 831,
+          "scrollHeight": 831
+        },
+        {
+          "width": 323,
+          "scrollWidth": 323,
+          "height": 812,
+          "scrollHeight": 812
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 860,
+      "stage": "upload",
+      "documentWidth": 845,
+      "viewportWidth": 845,
+      "visibleStates": [
+        "app-state upload-state",
+        "app-state upload-state",
+        "app-state upload-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 715,
+          "scrollHeight": 715
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 732,
+          "scrollHeight": 732
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 732,
+          "scrollHeight": 732
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 860,
+      "stage": "processing",
+      "documentWidth": 845,
+      "viewportWidth": 845,
+      "visibleStates": [
+        "app-state processing-state",
+        "app-state processing-state",
+        "app-state processing-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 749,
+          "scrollHeight": 749
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 790,
+          "scrollHeight": 790
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 749,
+          "scrollHeight": 749
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 860,
+      "stage": "result",
+      "documentWidth": 845,
+      "viewportWidth": 845,
+      "visibleStates": [
+        "app-state result-state",
+        "app-state result-state",
+        "app-state result-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 812,
+          "scrollHeight": 812
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 831,
+          "scrollHeight": 831
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 812,
+          "scrollHeight": 812
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 861,
+      "stage": "upload",
+      "documentWidth": 846,
+      "viewportWidth": 846,
+      "visibleStates": [
+        "app-state upload-state",
+        "app-state upload-state",
+        "app-state upload-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 686,
+          "scrollHeight": 686
+        },
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 740,
+          "scrollHeight": 740
+        },
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 703,
+          "scrollHeight": 703
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 861,
+      "stage": "processing",
+      "documentWidth": 846,
+      "viewportWidth": 846,
+      "visibleStates": [
+        "app-state processing-state",
+        "app-state processing-state",
+        "app-state processing-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 760,
+          "scrollHeight": 760
+        },
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 768,
+          "scrollHeight": 768
+        },
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 729,
+          "scrollHeight": 729
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 861,
+      "stage": "result",
+      "documentWidth": 846,
+      "viewportWidth": 846,
+      "visibleStates": [
+        "app-state result-state",
+        "app-state result-state",
+        "app-state result-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 791,
+          "scrollHeight": 791
+        },
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 810,
+          "scrollHeight": 810
+        },
+        {
+          "width": 231,
+          "scrollWidth": 231,
+          "height": 791,
+          "scrollHeight": 791
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 1024,
+      "stage": "upload",
+      "documentWidth": 1009,
+      "viewportWidth": 1009,
+      "visibleStates": [
+        "app-state upload-state",
+        "app-state upload-state",
+        "app-state upload-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 686,
+          "scrollHeight": 686
+        },
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 711,
+          "scrollHeight": 711
+        },
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 703,
+          "scrollHeight": 703
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 1024,
+      "stage": "processing",
+      "documentWidth": 1009,
+      "viewportWidth": 1009,
+      "visibleStates": [
+        "app-state processing-state",
+        "app-state processing-state",
+        "app-state processing-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 729,
+          "scrollHeight": 729
+        },
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 768,
+          "scrollHeight": 768
+        },
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 729,
+          "scrollHeight": 729
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 1024,
+      "stage": "result",
+      "documentWidth": 1009,
+      "viewportWidth": 1009,
+      "visibleStates": [
+        "app-state result-state",
+        "app-state result-state",
+        "app-state result-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 791,
+          "scrollHeight": 791
+        },
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 810,
+          "scrollHeight": 810
+        },
+        {
+          "width": 286,
+          "scrollWidth": 286,
+          "height": 791,
+          "scrollHeight": 791
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "stage": "upload",
+      "documentWidth": 1425,
+      "viewportWidth": 1425,
+      "visibleStates": [
+        "app-state upload-state",
+        "app-state upload-state",
+        "app-state upload-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 719,
+          "scrollHeight": 719
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 727,
+          "scrollHeight": 727
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 734,
+          "scrollHeight": 734
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "stage": "processing",
+      "documentWidth": 1425,
+      "viewportWidth": 1425,
+      "visibleStates": [
+        "app-state processing-state",
+        "app-state processing-state",
+        "app-state processing-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 749,
+          "scrollHeight": 749
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 783,
+          "scrollHeight": 783
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 749,
+          "scrollHeight": 749
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "stage": "result",
+      "documentWidth": 1425,
+      "viewportWidth": 1425,
+      "visibleStates": [
+        "app-state result-state",
+        "app-state result-state",
+        "app-state result-state"
+      ],
+      "phoneSizes": [
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 812,
+          "scrollHeight": 812
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 824,
+          "scrollHeight": 824
+        },
+        {
+          "width": 348,
+          "scrollWidth": 348,
+          "height": 812,
+          "scrollHeight": 812
+        }
+      ],
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "Happy barking beagle logo"
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "alt": "App icon concept using your original beagle logo"
+        }
+      ],
+      "stylesLoaded": true,
+      "scriptCount": 0,
+      "remoteResources": [],
+      "passed": true
+    }
+  ],
+  "keyboardPassed": true,
+  "errors": [],
+  "passed": true
+}

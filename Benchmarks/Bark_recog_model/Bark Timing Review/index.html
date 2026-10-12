@@ -1,0 +1,216 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bark Timing Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a listening desk. Sticky control bar on top, one row per audio event:
+   spectrogram (click = play) · times in ms · scores · video frame · verdict buttons */
+:root{
+  --bg:#f3f4f7; --panel:#ffffff; --ink:#1b1d26; --muted:#5f6475; --line:#dcdfe7;
+  --accent:#c2410c; --accent-soft:#fde7d9; --ok:#15803d; --ok-soft:#dcf3e3;
+  --bad:#b42318; --bad-soft:#fbe1de; --warn:#a16207; --warn-soft:#fbefcc; --play:#7c3aed;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12141b; --panel:#1b1e28; --ink:#e8eaf2; --muted:#9ba1b4; --line:#2c3040;
+  --accent:#fb923c; --accent-soft:#3a2416; --ok:#4ade80; --ok-soft:#173023; --bad:#f87171; --bad-soft:#3a1c1c;
+  --warn:#facc15; --warn-soft:#352d12; --play:#a78bfa; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12141b; --panel:#1b1e28; --ink:#e8eaf2; --muted:#9ba1b4; --line:#2c3040;
+  --accent:#fb923c; --accent-soft:#3a2416; --ok:#4ade80; --ok-soft:#173023; --bad:#f87171; --bad-soft:#3a1c1c;
+  --warn:#facc15; --warn-soft:#352d12; --play:#a78bfa; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 80px}
+h1{font-size:1.5rem;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:.35rem 0 0;max-width:68ch}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tab,.chip{font:inherit;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:.35rem .8rem;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.chip b{font-family:var(--mono);font-weight:600;font-size:.85em;margin-left:.3rem}
+.progress{margin-left:auto;font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+.btn{font:inherit;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:.35rem .7rem;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--play);outline-offset:2px}
+.list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.item{display:grid;grid-template-columns:320px minmax(0,1fr) 224px;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;padding:12px}
+.item[data-v="bark"]{border-left-color:var(--ok)} .item[data-v="other"]{border-left-color:var(--warn)}
+.item[data-v="not_dog"]{border-left-color:var(--bad)} .item[data-v="unsure"]{border-left-color:var(--play)}
+.item.focus{box-shadow:0 0 0 2px var(--play)}
+.spec{position:relative;width:320px;max-width:100%;height:96px;border-radius:6px;overflow:hidden;cursor:pointer;background:#000;border:0;padding:0}
+.spec img{display:block;width:100%;height:100%}
+.spec .head{position:absolute;top:0;bottom:0;width:2px;background:#fff;left:0;opacity:0;box-shadow:0 0 4px #000}
+.spec .hint{position:absolute;right:6px;bottom:4px;font:600 11px var(--mono);color:#fff;background:rgba(0,0,0,.55);padding:1px 5px;border-radius:4px}
+.meta{display:flex;flex-direction:column;gap:6px;min-width:0}
+.times{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.95rem}
+.times .dim{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;font-size:.8rem}
+.tag{border-radius:4px;padding:1px 6px;background:var(--bg);border:1px solid var(--line);font-family:var(--mono)}
+.tag.g-auto{background:var(--ok-soft);border-color:transparent}.tag.g-listen{background:var(--warn-soft);border-color:transparent}
+.tag.g-rejected{background:var(--bad-soft);border-color:transparent}.tag.g-miss{background:var(--accent-soft);border-color:transparent}
+.verdicts{display:flex;flex-wrap:wrap;gap:6px}
+.v{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:.25rem .6rem;cursor:pointer}
+.v kbd{font-family:var(--mono);font-size:.75em;color:var(--muted);margin-left:.25rem}
+.v[aria-pressed="true"][data-v="bark"]{background:var(--ok-soft);border-color:var(--ok)}
+.v[aria-pressed="true"][data-v="other"]{background:var(--warn-soft);border-color:var(--warn)}
+.v[aria-pressed="true"][data-v="not_dog"]{background:var(--bad-soft);border-color:var(--bad)}
+.v[aria-pressed="true"][data-v="unsure"]{border-color:var(--play)}
+.adj{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.82rem;color:var(--muted)}
+.adj input{width:7.5em;font:inherit;font-family:var(--mono);font-size:.85rem;padding:.15rem .35rem;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink)}
+.adj select{font:inherit;font-size:.85rem;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink)}
+.frame{width:224px;max-width:100%;aspect-ratio:16/9;border-radius:6px;object-fit:cover;background:var(--bg)}
+.noframe{display:grid;place-items:center;color:var(--muted);font-size:.8rem;border:1px dashed var(--line)}
+.export{margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.export textarea{width:100%;min-height:120px;font-family:var(--mono);font-size:.78rem;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px}
+.keys{color:var(--muted);font-size:.82rem}
+.keys kbd{font-family:var(--mono);border:1px solid var(--line);border-radius:4px;padding:0 4px;background:var(--panel)}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+@media (max-width:900px){.item{grid-template-columns:minmax(0,1fr)}.frame{width:100%}.spec{width:100%}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <h1>Bark Timing Review</h1>
+  <p class="lede">Listen to each sound and mark what it is. The green line on the spectrogram is the detected start, the yellow line the end. Fix the start or end time if it's off, then copy your corrections at the bottom and paste them back in the chat.</p>
+
+  <div class="bar">
+    <div class="row" id="tabs" role="group" aria-label="Video"></div>
+    <div class="row" id="chips" role="group" aria-label="Filter">
+      <span class="progress" id="progress"></span>
+    </div>
+    <div class="keys"><kbd>J</kbd>/<kbd>K</kbd> next/previous · <kbd>Space</kbd> play · <kbd>B</kbd> bark · <kbd>O</kbd> other dog sound · <kbd>N</kbd> not a dog · <kbd>U</kbd> unsure</div>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <section class="export" aria-labelledby="exh">
+    <h2 id="exh" style="font-size:1.05rem;margin:0">Your corrections</h2>
+    <p class="keys" style="margin:0">Only items you changed are included. Decisions are kept in this browser.</p>
+    <div class="row"><button class="btn primary" id="copy">Copy corrections</button><button class="btn" id="reset">Clear my decisions</button><span id="copied" class="keys" role="status"></span></div>
+    <textarea id="out" readonly aria-label="Corrections JSON"></textarea>
+  </section>
+</div>
+
+<script src="data.js"></script>
+<script>
+const DATA = window.BARK_DATA || [];
+const GROUPS = [["listen","Needs listening"],["rejected","Rejected — double-check"],["miss","Possible missed barks"],["auto","Auto-confirmed barks"],["all","All"]];
+const DEFAULT = {auto:"bark", rejected:"not_dog", listen:null, miss:null};
+let state = {video: 0, group: "listen", focus: 0};
+let dec = {};
+try { dec = JSON.parse(localStorage.getItem("barkdec") || "{}"); const s = JSON.parse(localStorage.getItem("barkui") || "null"); if (s) state = {...state, ...s, focus: 0}; } catch (e) {}
+const save = () => { try { localStorage.setItem("barkdec", JSON.stringify(dec)); localStorage.setItem("barkui", JSON.stringify({video: state.video, group: state.group})); } catch (e) {} };
+const keyOf = (v, it) => v.key + ":" + it.eid;
+const verdictOf = (v, it) => (dec[keyOf(v, it)] || {}).v ?? DEFAULT[it.group];
+const audio = new Audio();
+let playing = null;
+
+function fmt(ms){ return (ms/1000).toFixed(3) + " s"; }
+
+function renderTabs(){
+  const t = document.getElementById("tabs"); t.innerHTML = "";
+  DATA.forEach((v,i)=>{ const b=document.createElement("button"); b.className="tab"; b.textContent=v.label; b.setAttribute("aria-pressed", i===state.video);
+    b.onclick=()=>{state.video=i;state.focus=0;save();render();}; t.appendChild(b); });
+}
+function renderChips(){
+  const c = document.getElementById("chips"); c.querySelectorAll(".chip").forEach(x=>x.remove());
+  const v = DATA[state.video]; const prog = document.getElementById("progress");
+  GROUPS.forEach(([g,label])=>{ const n = g==="all" ? v.items.length : v.items.filter(i=>i.group===g).length;
+    if(!n && g!=="all") return;
+    const b=document.createElement("button"); b.className="chip"; b.innerHTML=`${label}<b>${n}</b>`; b.setAttribute("aria-pressed", g===state.group);
+    b.onclick=()=>{state.group=g;state.focus=0;save();render();}; c.insertBefore(b, prog); });
+  const todo = v.items.filter(i=>i.group!=="auto");
+  const done = todo.filter(i=>dec[keyOf(v,i)]?.v).length;
+  prog.textContent = `${done}/${todo.length} checked in this video`;
+}
+function visible(){ const v = DATA[state.video]; return v.items.filter(i=>state.group==="all"||i.group===state.group); }
+
+function renderList(){
+  const list = document.getElementById("list"); list.innerHTML = "";
+  const v = DATA[state.video]; const items = visible();
+  if(!items.length){ list.innerHTML = '<p class="empty">Nothing in this group for this video.</p>'; return; }
+  items.forEach((it, idx)=>{
+    const k = keyOf(v,it); const d = dec[k] || {}; const verdict = verdictOf(v,it);
+    const s = d.start_ms ?? it.start_ms, e = d.end_ms ?? it.end_ms;
+    const el = document.createElement("article"); el.className = "item" + (idx===state.focus?" focus":""); el.dataset.v = verdict || ""; el.dataset.idx = idx;
+    const gname = {auto:"auto-confirmed",listen:"needs listening",rejected:"auto-rejected",miss:"possible miss"}[it.group];
+    el.innerHTML = `
+      <button class="spec" aria-label="Play sound at ${fmt(it.start_ms)}"><img loading="lazy" src="${it.spec}" alt=""><span class="head"></span><span class="hint">▶ play</span></button>
+      <div class="meta">
+        <div class="times">${fmt(s)} <span class="dim">→</span> ${fmt(e)} <span class="dim">(${e-s} ms)</span></div>
+        <div class="tags"><span class="tag g-${it.group}">${gname}</span><span class="tag">model: ${it.sound}</span>
+          <span class="tag">dog ${Math.round(it.dog_prob*100)}%</span>${it.speech_prob!=null?`<span class="tag">speech ${Math.round(it.speech_prob*100)}%</span>`:""}${it.reason?`<span class="tag">${it.reason}</span>`:""}</div>
+        <div class="verdicts" role="group" aria-label="Verdict">
+          <button class="v" data-v="bark" aria-pressed="${verdict==="bark"}">Bark<kbd>B</kbd></button>
+          <button class="v" data-v="other" aria-pressed="${verdict==="other"}">Other dog sound<kbd>O</kbd></button>
+          <button class="v" data-v="not_dog" aria-pressed="${verdict==="not_dog"}">Not a dog<kbd>N</kbd></button>
+          <button class="v" data-v="unsure" aria-pressed="${verdict==="unsure"}">Unsure<kbd>U</kbd></button>
+        </div>
+        <div class="adj">
+          <label>start ms <input id="s-${k}" type="number" step="1" value="${s}"></label>
+          <label>end ms <input id="e-${k}" type="number" step="1" value="${e}"></label>
+          <label ${verdict==="other"?"":"hidden"}>type <select id="t-${k}">${["growl","howl","whine","yip","yodel/talk"].map(o=>`<option ${d.type===o?"selected":""}>${o}</option>`).join("")}</select></label>
+        </div>
+      </div>
+      ${it.frame?`<img class="frame" loading="lazy" src="${it.frame}" alt="Video frame at ${fmt(it.start_ms)}">`:`<div class="frame noframe">confident bark</div>`}`;
+    el.querySelector(".spec").onclick = ()=>{ state.focus=idx; markFocus(); play(it, el); };
+    el.querySelectorAll(".v").forEach(b=>b.onclick=()=>{ state.focus=idx; setVerdict(v,it,b.dataset.v); });
+    el.querySelector(`[id="s-${k}"]`).onchange = ev=>{ upd(k,{start_ms: +ev.target.value}); };
+    el.querySelector(`[id="e-${k}"]`).onchange = ev=>{ upd(k,{end_ms: +ev.target.value}); };
+    el.querySelector(`[id="t-${k}"]`).onchange = ev=>{ upd(k,{type: ev.target.value}); };
+    list.appendChild(el);
+  });
+}
+function upd(k, patch){ dec[k] = {...(dec[k]||{}), ...patch}; save(); renderExport(); renderChips(); }
+function setVerdict(v,it,val){ const k=keyOf(v,it); upd(k,{v: val, ...(val==="other" && !dec[k]?.type ? {type:"growl"} : {})}); const idx=state.focus; renderList(); state.focus=idx; markFocus(); }
+function markFocus(){ document.querySelectorAll(".item").forEach((x,i)=>x.classList.toggle("focus", i===state.focus)); }
+
+function play(it, el){
+  const head = el.querySelector(".head");
+  if (playing) { playing.head.style.opacity = 0; }
+  audio.src = it.clip; audio.currentTime = 0;
+  audio.play().catch(()=>{});
+  playing = {head, it};
+  const span = (it.clip_end_ms - it.clip_start_ms)/1000;
+  const tick = ()=>{ if(!playing || playing.head!==head) return;
+    head.style.opacity = audio.paused ? 0 : 1; head.style.left = Math.min(100, audio.currentTime/span*100) + "%";
+    if(!audio.paused) requestAnimationFrame(tick); };
+  audio.onplaying = ()=>requestAnimationFrame(tick);
+}
+
+function corrections(){
+  const out = {};
+  DATA.forEach(v=>v.items.forEach(it=>{ const d = dec[keyOf(v,it)]; if(!d) return;
+    const changed = (d.v && d.v!==DEFAULT[it.group]) || (d.start_ms!=null && d.start_ms!==it.start_ms) || (d.end_ms!=null && d.end_ms!==it.end_ms) || d.type;
+    if(!changed && !(it.group==="listen"||it.group==="miss")) return;
+    if(!d.v && d.start_ms==null && d.end_ms==null) return;
+    (out[v.key] ||= []).push({id: it.eid, group: it.group, verdict: d.v ?? DEFAULT[it.group], ...(d.v==="other"?{type:d.type||"growl"}:{}),
+      start_ms: d.start_ms ?? it.start_ms, end_ms: d.end_ms ?? it.end_ms});
+  }));
+  return out;
+}
+function renderExport(){ const c = corrections(); const n = Object.values(c).reduce((a,b)=>a+b.length,0);
+  document.getElementById("out").value = n ? JSON.stringify(c) : ""; document.getElementById("copy").textContent = n ? `Copy ${n} corrections` : "Copy corrections"; }
+document.getElementById("copy").onclick = ()=>{ const ta=document.getElementById("out"); const msg=document.getElementById("copied");
+  if(!ta.value){ msg.textContent="No decisions yet."; return; }
+  navigator.clipboard.writeText(ta.value).then(()=>msg.textContent="Copied. Paste it in the chat.").catch(()=>{ ta.focus(); ta.select(); msg.textContent="Text selected. Press Ctrl+C / ⌘C to copy."; }); };
+let resetArmed = false;
+document.getElementById("reset").onclick = (ev)=>{ if(!resetArmed){ resetArmed=true; ev.target.textContent="Click again to clear"; setTimeout(()=>{resetArmed=false; ev.target.textContent="Clear my decisions";},3000); return; }
+  dec = {}; save(); resetArmed=false; ev.target.textContent="Clear my decisions"; render(); };
+
+document.addEventListener("keydown", e=>{
+  if (e.target.matches("input,select,textarea")) return;
+  const items = visible(); if(!items.length) return; const v = DATA[state.video];
+  const key = e.key.toLowerCase();
+  if (key==="j"||key==="k"){ state.focus = Math.max(0, Math.min(items.length-1, state.focus + (key==="j"?1:-1))); markFocus();
+    document.querySelectorAll(".item")[state.focus]?.scrollIntoView({block:"center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); e.preventDefault(); }
+  else if (key===" "){ const el=document.querySelectorAll(".item")[state.focus]; if(el){ play(items[state.focus], el); e.preventDefault(); } }
+  else if ({b:"bark",o:"other",n:"not_dog",u:"unsure"}[key]){ setVerdict(v, items[state.focus], {b:"bark",o:"other",n:"not_dog",u:"unsure"}[key]); }
+});
+function render(){ renderTabs(); renderChips(); renderList(); renderExport(); }
+render();
+</script>
+
+</body></html>

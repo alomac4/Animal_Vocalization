@@ -1,0 +1,1 @@
+"""Private, temporary video inference service."""

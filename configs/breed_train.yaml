@@ -1,0 +1,19 @@
+# Dataset location is supplied by --data; class count comes from that dataset.
+epochs: 100
+imgsz: 960
+batch: 4
+device: 0
+workers: 4
+amp: true
+cache: false
+patience: 0
+seed: 42
+deterministic: true
+pretrained: true
+single_cls: false
+save: true
+save_period: 10
+val: true
+plots: true
+close_mosaic: 10
+optimizer: auto

@@ -1,0 +1,5 @@
+# Install the CUDA wheels first; see README.md.
+torch==2.7.1
+torchvision==0.22.1
+ultralytics==8.4.173
+Pillow>=11.0,<13

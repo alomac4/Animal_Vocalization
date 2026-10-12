@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>BARK! — Android design directions</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/happy_barking_beagle_sticker.png">
+</head>
+<body>
+  <main class="showcase">
+    <header class="showcase-header">
+      <a class="showcase-brand" href="#top" aria-label="BARK design showcase home">
+        <img class="brand-mark" src="assets/happy_barking_beagle_sticker.png" width="56" height="56" alt="Happy barking beagle logo">
+      </a>
+      <span class="prototype-badge"><span></span> Android · HTML + CSS prototype</span>
+    </header>
+
+    <section class="intro" id="top" aria-labelledby="showcase-title">
+      <div>
+        <p class="eyebrow">SMALL APP. BIG PERSONALITY.</p>
+        <h1 id="showcase-title">A good look for<br>your best friend<span>.</span></h1>
+        <p class="intro-copy">One video. A little intelligence. A clearer picture.<br>Choose the visual direction for your dog-detection app.</p>
+      </div>
+      <aside class="palette-card" aria-label="Palette inspired by your supplied logo">
+        <p>Inspired by your logo</p>
+        <div class="swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <span>Cream · rust · bark orange · cocoa</span>
+      </aside>
+    </section>
+
+    <section class="comparison" aria-label="Compare the three app designs">
+      <input class="state-input" type="radio" name="stage" id="stage-upload" checked>
+      <input class="state-input" type="radio" name="stage" id="stage-processing">
+      <input class="state-input" type="radio" name="stage" id="stage-result">
+
+      <div class="comparison-toolbar">
+        <div class="toolbar-title"><span class="tiny-dot"></span> THREE DIRECTIONS. ONE SIMPLE FLOW.</div>
+        <div class="state-switch" role="group" aria-label="Preview app state">
+          <label for="stage-upload"><span>01</span> Upload</label>
+          <label for="stage-processing"><span>02</span> Processing</label>
+          <label for="stage-result"><span>03</span> Result</label>
+        </div>
+      </div>
+      <p class="preview-notice">Switch states above to explore each design. App controls below are visual only; no files are uploaded.</p>
+
+      <div class="design-grid">
+        <article class="design-option warm" id="option-a" aria-labelledby="title-a">
+          <header class="option-heading"><div><span class="option-letter">A</span><h2 id="title-a">Warm Companion</h2></div><span class="recommendation">SELECTED</span></header>
+          <p class="option-description">Friendly, soft, and a little playful.</p>
+          <div class="phone" aria-label="Warm Companion Android preview">
+            <div class="phone-screen">
+              <div class="status-bar" aria-hidden="true"><span>9:41</span><span class="camera-hole"></span><span class="system-icons">▴ ▰ <i></i></span></div>
+              <div class="app-content">
+                <header class="app-header"><img class="brand-mark" src="assets/happy_barking_beagle_sticker.png" width="116" height="116" alt="Happy barking beagle logo"></header>
+
+                <section class="app-state upload-state" aria-label="Upload state">
+                  <span class="app-kicker">MADE FOR YOUR BEST FRIEND</span>
+                  <h3>Every dog.<br>In the picture<span>.</span></h3>
+                  <p class="app-copy">Turn your video into a clearer view,<br>with dog detection boxes built in.</p>
+                  <div class="upload-zone">
+                    <span class="upload-art" aria-hidden="true"><span class="video-icon"></span><span class="sparkle one">✦</span><span class="sparkle two">✦</span></span>
+                    <h4>A video worth a closer look</h4>
+                    <p>Pick a clip. We'll take it from here.</p>
+                    <button class="button primary" type="button" disabled><span aria-hidden="true">＋</span> Choose video</button>
+                    <span class="file-hint">Video files · limits to be confirmed</span>
+                  </div>
+                  <div class="mini-benefits"><span><i aria-hidden="true">✓</i> Boxes built in</span><span><i aria-hidden="true">↓</i> Ready to download</span></div>
+                </section>
+
+                <section class="app-state processing-state" aria-label="Processing state">
+                  <span class="app-kicker">A LITTLE MAGIC, IN PROGRESS</span>
+                  <h3>Finding your<br>four-legged stars<span>.</span></h3>
+                  <p class="app-copy">Your clip is uploaded. We're looking<br>for dogs, one frame at a time.</p>
+                  <div class="processing-card">
+                    <div class="processing-orbit" aria-hidden="true"><span class="paw"><i></i><i></i><i></i><i></i><b></b></span></div>
+                    <h4>Detecting dogs</h4><p>This may take a few moments.</p>
+                    <div class="indeterminate" aria-hidden="true"><span></span></div>
+                    <ol class="stage-list"><li class="complete"><i>✓</i> Video uploaded</li><li class="active"><i>2</i> Detecting dogs <span>IN PROGRESS</span></li><li><i>3</i> Rendering your video</li></ol>
+                  </div>
+                  <p class="keep-open">Keep the app open while we finish.</p>
+                </section>
+
+                <section class="app-state result-state" aria-label="Result state">
+                  <span class="app-kicker"><span class="ready-dot"></span> READY FOR A REPLAY</span>
+                  <h3>A clearer view.<br>A happier tail<span>.</span></h3>
+                  <p class="app-copy">Your video, with dog detection boxes<br>already included. It's all yours.</p>
+                  <div class="result-card">
+                    <div class="video-scene"><span class="scene-badge">ILLUSTRATIVE PREVIEW</span><span class="detection-box"><span>Dog</span></span><span class="play-button" aria-hidden="true">▶</span><div class="video-controls" aria-hidden="true"><span>▶</span><i></i><span>0:00 / 0:24</span><span>⛶</span></div></div>
+                    <div class="result-file"><span class="file-icon" aria-hidden="true">▶</span><div><strong>park_walk_detected.mp4</strong><span>Rendered video · MP4</span></div><span class="file-check" aria-hidden="true">✓</span></div>
+                  </div>
+                  <button class="button primary" type="button" disabled><span aria-hidden="true">↓</span> Download video</button>
+                  <button class="button secondary" type="button" disabled>Analyze another video <span aria-hidden="true">↗</span></button>
+                  <p class="keep-open">Temporary result. Download before leaving.</p>
+                </section>
+                <footer class="app-footer"><span aria-hidden="true">♧</span> No account. No saved history.</footer>
+              </div>
+              <div class="android-nav" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+          <div class="option-summary"><span>CREAM + BURNT ORANGE</span><p>Generous space, rounded cards, warm copy.<br>The closest match to your logo's personality.</p></div>
+        </article>
+
+        <article class="design-option studio" id="option-b" aria-labelledby="title-b">
+          <header class="option-heading"><div><span class="option-letter">B</span><h2 id="title-b">Clean Studio</h2></div><span class="direction-tag">MINIMAL</span></header>
+          <p class="option-description">Precise, polished, and quietly confident.</p>
+          <div class="phone" aria-label="Clean Studio Android preview">
+            <div class="phone-screen">
+              <div class="status-bar" aria-hidden="true"><span>9:41</span><span class="camera-hole"></span><span class="system-icons">▴ ▰ <i></i></span></div>
+              <div class="app-content">
+                <header class="app-header"><img class="brand-mark" src="assets/happy_barking_beagle_sticker.png" width="116" height="116" alt="Happy barking beagle logo"></header>
+
+                <section class="app-state upload-state" aria-label="Upload state">
+                  <span class="app-kicker">VIDEO ANALYSIS / DOG DETECTION</span>
+                  <h3>See what<br>you've been missing.</h3>
+                  <p class="app-copy">Upload a video. Get a downloadable clip<br>with detection boxes rendered in.</p>
+                  <div class="studio-feature"><span class="feature-number">01—03</span><span>UPLOAD <b>→</b> ANALYZE <b>→</b> DOWNLOAD</span></div>
+                  <div class="upload-zone">
+                    <span class="upload-art" aria-hidden="true"><span class="video-icon"></span></span>
+                    <h4>Select your source video</h4>
+                    <p>A single clip is all you need.</p>
+                    <button class="button primary" type="button" disabled>Choose video <span aria-hidden="true">↗</span></button>
+                    <span class="file-hint">Video files · limits to be confirmed</span>
+                  </div>
+                  <div class="studio-note"><span aria-hidden="true">▣</span><p><strong>One file in. One file out.</strong><br>No annotation files to manage.</p></div>
+                </section>
+
+                <section class="app-state processing-state" aria-label="Processing state">
+                  <span class="app-kicker">VIDEO ANALYSIS / PROCESSING</span>
+                  <h3>Analysis<br>in progress.</h3>
+                  <p class="app-copy">Your source video is being processed.<br>We'll show the result here when it's ready.</p>
+                  <div class="source-strip"><span class="file-icon" aria-hidden="true">▶</span><div><strong>park_walk.mp4</strong><span>Sample source video</span></div><span class="source-tag">VIDEO</span></div>
+                  <div class="processing-card">
+                    <div class="scanner" aria-hidden="true"><i></i><span class="paw"><i></i><i></i><i></i><i></i><b></b></span></div>
+                    <h4>Detecting dogs</h4><p>Frame-by-frame analysis</p>
+                    <div class="indeterminate" aria-hidden="true"><span></span></div>
+                    <ol class="stage-list"><li class="complete"><i>✓</i> Upload complete</li><li class="active"><i>2</i> Detection <span>ACTIVE</span></li><li><i>3</i> Video rendering</li></ol>
+                  </div>
+                  <p class="keep-open">Keep this screen open until processing finishes.</p>
+                </section>
+
+                <section class="app-state result-state" aria-label="Result state">
+                  <span class="app-kicker"><span class="ready-dot"></span> VIDEO ANALYSIS / COMPLETE</span>
+                  <h3>Processed.<br>Ready to go.</h3>
+                  <p class="app-copy">Detection boxes are rendered into the video.<br>Preview it below, then save your copy.</p>
+                  <div class="result-card">
+                    <div class="video-scene"><span class="scene-badge">ILLUSTRATIVE PREVIEW</span><span class="detection-box"><span>Dog</span></span><span class="play-button" aria-hidden="true">▶</span><div class="video-controls" aria-hidden="true"><span>▶</span><i></i><span>0:00 / 0:24</span><span>⛶</span></div></div>
+                    <div class="result-file"><span class="file-icon" aria-hidden="true">▶</span><div><strong>park_walk_detected.mp4</strong><span>Rendered output · MP4</span></div><span class="file-check" aria-hidden="true">✓</span></div>
+                  </div>
+                  <div class="output-detail"><span>OUTPUT TYPE</span><strong>Video with embedded boxes</strong></div>
+                  <button class="button primary" type="button" disabled>Download video <span aria-hidden="true">↓</span></button>
+                  <button class="button secondary" type="button" disabled>Start another analysis <span aria-hidden="true">＋</span></button>
+                  <p class="keep-open">Temporary output. Save before leaving.</p>
+                </section>
+                <footer class="app-footer"><span aria-hidden="true">♧</span> No account required. No saved history.</footer>
+              </div>
+              <div class="android-nav" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+          <div class="option-summary"><span>IVORY + ESPRESSO</span><p>Structured layouts, crisp edges, focused details.<br>A clean tool that lets the video do the talking.</p></div>
+        </article>
+
+        <article class="design-option dark" id="option-c" aria-labelledby="title-c">
+          <header class="option-heading"><div><span class="option-letter">C</span><h2 id="title-c">Dark Kennel</h2></div><span class="direction-tag">CINEMATIC</span></header>
+          <p class="option-description">Bold, immersive, and built around video.</p>
+          <div class="phone" aria-label="Dark Kennel Android preview">
+            <div class="phone-screen">
+              <div class="status-bar" aria-hidden="true"><span>9:41</span><span class="camera-hole"></span><span class="system-icons">▴ ▰ <i></i></span></div>
+              <div class="app-content">
+                <header class="app-header"><img class="brand-mark" src="assets/happy_barking_beagle_sticker.png" width="116" height="116" alt="Happy barking beagle logo"></header>
+
+                <section class="app-state upload-state" aria-label="Upload state">
+                  <span class="app-kicker"><span class="tiny-dot"></span> DOG DETECTION, SIMPLIFIED</span>
+                  <h3>Your video.<br>Their spotlight<span>.</span></h3>
+                  <p class="app-copy">Find the dogs in every frame.<br>Download a video with boxes built in.</p>
+                  <div class="upload-zone">
+                    <span class="upload-art" aria-hidden="true"><span class="video-icon"></span><span class="sparkle one">✦</span></span>
+                    <h4>Let's roll.</h4>
+                    <p>Choose a clip to get started.</p>
+                    <button class="button primary" type="button" disabled><span aria-hidden="true">＋</span> Choose video</button>
+                    <span class="file-hint">Video files · limits to be confirmed</span>
+                  </div>
+                  <div class="mini-benefits"><span><i aria-hidden="true">▣</i> Built-in boxes</span><span><i aria-hidden="true">↓</i> Yours to keep</span></div>
+                </section>
+
+                <section class="app-state processing-state" aria-label="Processing state">
+                  <span class="app-kicker"><span class="tiny-dot"></span> IN THE WORKS</span>
+                  <h3>Setting<br>the spotlight<span>.</span></h3>
+                  <p class="app-copy">Looking for the stars of your video.<br>Your result will appear right here.</p>
+                  <div class="processing-card">
+                    <div class="processing-orbit" aria-hidden="true"><span class="paw"><i></i><i></i><i></i><i></i><b></b></span></div>
+                    <h4>Detecting dogs</h4><p>One frame at a time.</p>
+                    <div class="indeterminate" aria-hidden="true"><span></span></div>
+                    <ol class="stage-list"><li class="complete"><i>✓</i> Video uploaded</li><li class="active"><i>2</i> Detection running <span>LIVE</span></li><li><i>3</i> Rendering the final cut</li></ol>
+                  </div>
+                  <p class="keep-open">Keep the app open. We'll take it from here.</p>
+                </section>
+
+                <section class="app-state result-state" aria-label="Result state">
+                  <span class="app-kicker"><span class="ready-dot"></span> THAT'S A WRAP</span>
+                  <h3>Made for<br>the replay<span>.</span></h3>
+                  <p class="app-copy">Your dogs, brought into focus.<br>Detection boxes included in every frame.</p>
+                  <div class="result-card">
+                    <div class="video-scene"><span class="scene-badge">ILLUSTRATIVE PREVIEW</span><span class="detection-box"><span>Dog</span></span><span class="play-button" aria-hidden="true">▶</span><div class="video-controls" aria-hidden="true"><span>▶</span><i></i><span>0:00 / 0:24</span><span>⛶</span></div></div>
+                    <div class="result-file"><span class="file-icon" aria-hidden="true">▶</span><div><strong>park_walk_detected.mp4</strong><span>Rendered video · MP4</span></div><span class="file-check" aria-hidden="true">✓</span></div>
+                  </div>
+                  <button class="button primary" type="button" disabled><span aria-hidden="true">↓</span> Download video</button>
+                  <button class="button secondary" type="button" disabled>Analyze another video <span aria-hidden="true">↗</span></button>
+                  <p class="keep-open">Temporary result. Make sure to save your copy.</p>
+                </section>
+                <footer class="app-footer"><span aria-hidden="true">♧</span> No account. No saved history. Just your video.</footer>
+              </div>
+              <div class="android-nav" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+          <div class="option-summary"><span>DEEP COCOA + GLOWING ORANGE</span><p>Dark surfaces, luminous accents, cinematic contrast.<br>More dramatic, especially on the result screen.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="branding-preview" aria-labelledby="branding-title">
+      <div class="app-icon-preview"><img src="assets/happy_barking_beagle_sticker.png" width="80" height="80" alt="App icon concept using your original beagle logo"></div>
+      <div><p class="eyebrow">YOUR ORIGINAL ARTWORK</p><h2 id="branding-title">One logo. On the page and on your phone.</h2><p>The supplied beagle logo is now used in the app header. This cream-backed icon shows the same full artwork without cropping.</p><span>Visual icon preview only · Native Android assets come with the React Native app.</span></div>
+    </section>
+    <section class="decision-note" aria-labelledby="decision-title"><span class="note-icon" aria-hidden="true">✓</span><div><h2 id="decision-title">Warm Companion — your selected direction.</h2><p>Original logo, warm cream, burnt-orange actions. The other concepts remain here for reference.</p></div><a href="#top">Back to top ↑</a></section>
+    <footer class="showcase-footer"><span>BARK! / ANDROID CONCEPTS</span><p>Design only · No JavaScript, backend, or inference · Original supplied beagle logo</p><span>01 / 03</span></footer>
+  </main>
+</body>
+</html>
