@@ -1,0 +1,8 @@
+{
+  "model": "realesr-general-x4v3",
+  "source": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth",
+  "upstream_revision": "a4abfb2979a7bbff3f69f58f58ae324608821e27",
+  "sha256": "8dc7edb9ac80ccdc30c3a5dca6616509367f05fbc184ad95b731f05bece96292",
+  "license": "BSD-3-Clause",
+  "native_scale": 4
+}

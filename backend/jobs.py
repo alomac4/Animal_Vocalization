@@ -33,7 +33,14 @@ class Job:
     detection_count: int = 0
     breed_crop_count: int = 0
     breed_labeled_count: int = 0
+    tracked_dog_count: int = 0
+    breed_labeled_track_count: int = 0
+    consensus_labeled_count: int = 0
+    rendered_frames: int = 0
     frames: int = 0
+    performance: dict | None = None
+    dog_statistics: list[dict] = field(default_factory=list)
+    distance_estimation: dict | None = None
     expires_at: float | None = None
     created_at: float = field(default_factory=time.time)
     cancel: threading.Event = field(default_factory=threading.Event)
@@ -44,7 +51,11 @@ class Job:
         return {"id": self.id, "status": self.status, "progress": self.progress,
                 "error": self.error, "detection_count": self.detection_count,
                 "breed_crop_count": self.breed_crop_count, "breed_labeled_count": self.breed_labeled_count,
-                "frames": self.frames, "expires_at": self.expires_at,
+                "tracked_dog_count": self.tracked_dog_count, "breed_labeled_track_count": self.breed_labeled_track_count,
+                "consensus_labeled_count": self.consensus_labeled_count, "rendered_frames": self.rendered_frames,
+                "frames": self.frames, "expires_at": self.expires_at, "performance": self.performance,
+                "dog_statistics": self.dog_statistics,
+                "distance_estimation": self.distance_estimation,
                 "video_path": f"/jobs/{self.id}/video" if self.status == "ready" else None}
 
 
@@ -139,7 +150,7 @@ class JobManager:
     def cleanup(self) -> None:
         with self.lock:
             for job in list(self.jobs.values()):
-                if (job.expires_at and job.expires_at <= time.time()) or time.time() - job.created_at > 3600:
+                if (job.expires_at and job.expires_at <= time.time()) or time.time() - job.created_at > max(3600, self.settings.process_timeout_seconds + 600):
                     job.cancel.set()
                 if job.status != "uploading":
                     self.remove_if_safe(job)
@@ -168,8 +179,32 @@ class JobManager:
                    "--weights", str(self.settings.weights), "--ffmpeg", imageio_ffmpeg.get_ffmpeg_exe(),
                    "--max-duration", str(self.settings.max_duration_seconds),
                    "--device", self.settings.device, "--imgsz", str(self.settings.imgsz),
-                   "--breed-weights", str(self.settings.breed_weights), "--breed-conf", str(self.settings.breed_conf)]
+                   "--breed-weights", str(self.settings.breed_weights), "--breed-conf", str(self.settings.breed_conf),
+                   "--breed-imgsz", str(self.settings.breed_imgsz), "--breed-batch", str(self.settings.breed_batch),
+                   "--crop-upscale", str(self.settings.crop_upscale), "--half" if self.settings.half else "--no-half",
+                   "--dog-conf", str(self.settings.dog_conf),
+                   "--track-high-conf", str(self.settings.track_high_conf),
+                   "--track-new-conf", str(self.settings.track_new_conf),
+                   "--track-min-hits", str(self.settings.track_min_hits),
+                   "--track-buffer-seconds", str(self.settings.track_buffer_seconds),
+                   "--track-link-seconds", str(self.settings.track_link_seconds),
+                   "--track-reconnect-seconds", str(self.settings.track_reconnect_seconds),
+                   "--track-presence-seconds", str(self.settings.track_presence_seconds),
+                   "--track-presence-ratio", str(self.settings.track_presence_ratio),
+                   "--track-clip-presence-ratio", str(self.settings.track_clip_presence_ratio),
+                   "--tracker-backend", self.settings.tracker_backend,
+                   "--distance-enabled" if self.settings.distance_enabled else "--no-distance-enabled",
+                   "--distance-focal-mm", str(self.settings.distance_focal_mm),
+                   "--distance-dog-extent-m", str(self.settings.distance_dog_extent_m),
+                   "--distance-backend", self.settings.distance_backend,
+                   "--depth-python", str(self.settings.depth_python),
+                   "--depth-weights", str(self.settings.depth_weights),
+                   "--dog-batch", str(self.settings.dog_batch),
+                   "--upscaler-batch", str(self.settings.upscaler_batch)]
         import os
+        if self.settings.upscaler_weights:
+            command.extend(["--upscaler-weights", str(self.settings.upscaler_weights),
+                            "--upscaler-tile", str(self.settings.upscaler_tile)])
         env = dict(os.environ, OMP_NUM_THREADS="2", MKL_NUM_THREADS="2",
                    PYTHONIOENCODING="utf-8", YOLO_CONFIG_DIR=str(job.directory / "yolo-settings"))
         events: queue.Queue = queue.Queue()
@@ -194,7 +229,9 @@ class JobManager:
                         else:
                             update(job, **{key: event[key] for key in
                                            ("status", "progress", "frames", "detection_count",
-                                            "breed_crop_count", "breed_labeled_count") if key in event})
+                                             "breed_crop_count", "breed_labeled_count", "performance",
+                                             "tracked_dog_count", "breed_labeled_track_count",
+                                               "consensus_labeled_count", "rendered_frames", "dog_statistics", "distance_estimation") if key in event})
                     except queue.Empty:
                         if process.poll() is not None and not reader.is_alive():
                             break

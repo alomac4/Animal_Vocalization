@@ -35,6 +35,18 @@ def main():
             health = client.get("/health", headers=headers).json()
             assert health["device"].startswith("cuda:"), health
             assert health["breed_weights_available"] and health["pipeline"] == "dog_boxes_then_breed_crops", health
+            expected_upscaler = "realesr-general-x4v3" if config.upscaler_weights else "opencv_lanczos4"
+            assert health["imgsz"] == 1536 and health["crop_upscaler"] == expected_upscaler, health
+            assert health["breed_batch"] == config.breed_batch and health["half"], health
+            assert health["dog_batch"] == config.dog_batch and health["decode_prefetch"], health
+            assert health["tracklet_linking"] == "conservative_motion_color", health
+            expected_tracking = ("confirmed_motion_color_hungarian" if config.tracker_backend == "motion_color"
+                                 else f"confirmed_{config.tracker_backend}_sequential")
+            assert health["tracking"] == expected_tracking, health
+            assert health["track_min_hits"] == 3 and health["track_buffer_seconds"] == 3, health
+            assert health["breed_consensus"] == "clip_majority_non_unknown" and health["render_passes"] == 2, health
+            assert health["video_labels"] == ("dog_id_and_estimated_distance" if config.distance_enabled else "dog_id_only"), health
+            assert health["tracker_backend"] == config.tracker_backend, health
             response = client.post("/jobs", content=source.read_bytes(), headers=headers)
             assert response.status_code == 202, response.text
             job_id = response.json()["id"]
@@ -45,9 +57,33 @@ def main():
                     break
                 time.sleep(0.3)
             assert result["status"] == "ready", result
+            assert result["performance"]["frames"] == result["frames"], result
+            if config.distance_enabled:
+                assert result["distance_estimation"]["approximate"], result
+                assert result["performance"]["distance_estimated_boxes"] + result["performance"]["distance_unavailable_boxes"] == result["consensus_labeled_count"], result
+            else:
+                assert result["distance_estimation"] is None, result
+                assert result["performance"]["depth_frames"] == 0, result
+                assert result["performance"]["depth_seconds"] == 0, result
+                assert result["performance"]["depth_load_seconds"] == 0, result
+            print(f"Measured pipeline stages: {result['performance']}")
+            if config.upscaler_weights:
+                assert health["upscaler_weights_available"], health
+                assert result["performance"]["neural_upscaled_crops"] > 0, result
+                assert result["performance"]["upscaler_host_transfers"] == result["performance"]["neural_upscaled_crops"], result
+                assert result["performance"]["upscaler_host_bytes"] > 0, result
             assert result["detection_count"] > 0, result
             assert result["breed_crop_count"] == result["detection_count"], result
             assert 0 <= result["breed_labeled_count"] <= result["breed_crop_count"], result
+            assert result["frames"] == result["rendered_frames"] == 5, result
+            assert result["tracked_dog_count"] == 1, result
+            assert result["breed_labeled_track_count"] == 1, result
+            assert len(result["dog_statistics"]) == 1, result
+            assert result["dog_statistics"][0]["name"] == "Dog #1", result
+            assert result["dog_statistics"][0]["breed"], result
+            print(f"Dog statistics: {result['dog_statistics']}")
+            assert result["consensus_labeled_count"] == result["detection_count"], result
+            print(f"Tracking: {result['tracked_dog_count']} ID, {result['consensus_labeled_count']} consensus-labeled frames")
             video = client.get(f"/jobs/{job_id}/video", headers=headers)
             assert video.status_code == 200
             output = root / "output.mp4"

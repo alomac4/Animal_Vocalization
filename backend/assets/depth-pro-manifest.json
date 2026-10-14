@@ -1,0 +1,10 @@
+{
+  "model": "apple_depth_pro",
+  "source_revision": "9e65e4dbe9568d23c546fcec53302b10445e109e",
+  "weights_url": "https://ml-site.cdn-apple.com/models/depth-pro/depth_pro.pt",
+  "sha256": "3eb35ca68168ad3d14cb150f8947a4edf85589941661fdb2686259c80685c0ce",
+  "bytes": 1904446787,
+  "python": "C:\\Work\\Classes\\Animal_Vocalization\\backend\\.depth-venv\\Scripts\\python.exe",
+  "license": "C:\\Work\\Classes\\Animal_Vocalization\\backend\\third_party\\ml-depth-pro\\LICENSE",
+  "checksum_note": "Local integrity fingerprint of HTTPS official download, not upstream signature verification"
+}

@@ -11,6 +11,8 @@ from starlette.responses import FileResponse, Response
 
 from .jobs import CapacityError, JobManager
 from .settings import Settings
+from .distance import DistancePreset
+from .depth_distance import metadata as depth_metadata
 
 
 class LeasedVideoResponse(FileResponse):
@@ -58,8 +60,38 @@ def create_app(settings: Settings | None = None, renderer=None) -> FastAPI:
         return {"status": "ok", "model": config.model_label, "device": config.device,
                 "imgsz": config.imgsz,
                 "pipeline": "dog_boxes_then_breed_crops",
+                "tracking": ("confirmed_motion_color_hungarian" if config.tracker_backend == "motion_color"
+                             else f"confirmed_{config.tracker_backend}_sequential"),
+                "tracker_backend": config.tracker_backend,
+                "temporal_motion": "observation_centric_kalman" if config.tracker_backend == "ocsort" else None,
+                "track_buffer_seconds": config.track_buffer_seconds,
+                "dog_conf": config.dog_conf, "track_high_conf": config.track_high_conf,
+                "track_new_conf": config.track_new_conf, "track_min_hits": config.track_min_hits,
+                "breed_consensus": "clip_majority_non_unknown", "render_passes": 2,
+                "video_labels": "dog_id_and_estimated_distance" if config.distance_enabled else "dog_id_only", "dog_statistics": True,
+                "distance_estimation": ((depth_metadata() if config.distance_backend == "depth_pro" else
+                                         DistancePreset(config.distance_focal_mm, config.distance_dog_extent_m).metadata())
+                                        if config.distance_enabled else None),
+                "distance_backend": config.distance_backend,
+                "depth_weights_available": config.depth_weights.is_file(),
+                "depth_python_available": config.depth_python.is_file(),
+                "tracklet_linking": "conservative_motion_color",
+                "track_link_seconds": config.track_link_seconds,
+                "identity_recovery": "appearance_gallery_mutual_best_v2",
+                "track_reconnect_seconds": config.track_reconnect_seconds,
+                "track_presence_seconds": config.track_presence_seconds,
+                "track_presence_ratio": config.track_presence_ratio,
+                "track_clip_presence_ratio": config.track_clip_presence_ratio,
+                "dog_batch": config.dog_batch, "decode_prefetch": True,
+                "upscaler_batch": config.upscaler_batch,
+                "upscaler_assembly": "gpu_core_stitch_v1" if config.upscaler_weights else None,
                 "breed_enabled": config.breed_weights is not None,
                 "breed_conf": config.breed_conf,
+                "breed_imgsz": config.breed_imgsz, "breed_batch": config.breed_batch,
+                "half": config.half,
+                "crop_upscaler": "realesr-general-x4v3" if config.upscaler_weights else "opencv_lanczos4",
+                "upscaler_weights_available": bool(config.upscaler_weights and config.upscaler_weights.is_file()),
+                "upscaler_tile": config.upscaler_tile, "crop_max_scale": config.crop_upscale,
                 "breed_weights_available": bool(config.breed_weights and config.breed_weights.is_file()),
                 "max_upload_bytes": config.max_upload_bytes,
                 "max_duration_seconds": config.max_duration_seconds,

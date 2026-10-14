@@ -16,7 +16,11 @@ def fake_renderer(job, update):
            breed_crop_count=1, breed_labeled_count=1)
     (job.directory / "result.mp4").write_bytes(b"fake rendered video")
     (job.directory / "yolo-settings").mkdir()
-    update(job, status="rendering", progress=None)
+    (job.directory / "track-observations.jsonl").write_text("temporary boxes and IDs")
+    update(job, status="rendering", progress=None, tracked_dog_count=1,
+           breed_labeled_track_count=1, consensus_labeled_count=1, rendered_frames=1,
+           dog_statistics=[{"dog_id": 1, "name": "Dog #1", "breed": "beagle", "votes": 1, "known_votes": 1}],
+           distance_estimation={"approximate": True, "focal_equivalent_mm": 26, "dog_extent_m": .65})
 
 
 class APITests(unittest.TestCase):
@@ -55,8 +59,24 @@ class APITests(unittest.TestCase):
     def test_health_reports_configured_gpu(self):
         response = self.client.get("/health", headers=self.headers)
         self.assertEqual(response.json()["device"], "cuda:0")
-        self.assertEqual(response.json()["imgsz"], 960)
+        self.assertEqual(response.json()["imgsz"], 1536)
+        self.assertEqual(response.json()["breed_imgsz"], 960)
+        self.assertEqual(response.json()["breed_batch"], self.settings.breed_batch)
+        self.assertTrue(response.json()["half"])
+        self.assertEqual(response.json()["crop_upscaler"], "opencv_lanczos4")
         self.assertEqual(response.json()["pipeline"], "dog_boxes_then_breed_crops")
+        self.assertEqual(response.json()["tracking"], "confirmed_ocsort_sequential")
+        self.assertEqual(response.json()["track_buffer_seconds"], 3)
+        self.assertEqual(response.json()["track_min_hits"], 3)
+        self.assertEqual(response.json()["track_new_conf"], .6)
+        self.assertEqual(response.json()["breed_consensus"], "clip_majority_non_unknown")
+        self.assertEqual(response.json()["render_passes"], 2)
+        self.assertEqual(response.json()["video_labels"], "dog_id_only")
+        self.assertIsNone(response.json()["distance_estimation"])
+        self.assertEqual(response.json()["distance_backend"], "depth_pro")
+        self.assertEqual(response.json()["identity_recovery"], "appearance_gallery_mutual_best_v2")
+        self.assertEqual(response.json()["track_reconnect_seconds"], 15)
+        self.assertEqual(response.json()["track_clip_presence_ratio"], .03)
         self.assertFalse(response.json()["breed_weights_available"])
 
     def test_full_lifecycle_and_range_playback(self):
@@ -64,6 +84,12 @@ class APITests(unittest.TestCase):
         metadata = self.client.get(f"/jobs/{job_id}", headers=self.headers).json()
         self.assertEqual(metadata["breed_crop_count"], 1)
         self.assertEqual(metadata["breed_labeled_count"], 1)
+        self.assertEqual(metadata["tracked_dog_count"], 1)
+        self.assertEqual(metadata["breed_labeled_track_count"], 1)
+        self.assertEqual(metadata["consensus_labeled_count"], 1)
+        self.assertEqual(metadata["rendered_frames"], 1)
+        self.assertTrue(metadata["distance_estimation"]["approximate"])
+        self.assertEqual(metadata["dog_statistics"], [{"dog_id": 1, "name": "Dog #1", "breed": "beagle", "votes": 1, "known_votes": 1}])
         result = self.client.get(f"/jobs/{job_id}/video", headers=self.headers)
         self.assertEqual(result.content, b"fake rendered video")
         self.assertEqual(result.headers["cache-control"], "no-store")

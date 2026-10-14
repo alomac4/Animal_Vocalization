@@ -10,7 +10,7 @@ Transfer it to your Android phone via USB or a private file transfer and open it
 Allow installation from that file app if Android asks. This is an ARM64 APK
 (modern 64-bit Android phones), minimum Android 7, signed for private testing,
 not a Play Store release. No Expo Go or Metro is needed for this installed APK.
-Version 1.0.1 (version code 2) replaces the earlier prototype when signatures
+Version 1.0.2 (version code 3) replaces the earlier prototype when signatures
 match. Do not distribute this development-signed build as a production app.
 
 ## 2. Connect both devices with Tailscale
@@ -71,8 +71,14 @@ access. The PC API itself listens only on localhost.
    not annotation data. The server deletes its temporary result after 30 minutes.
 
 Pipeline: dog detection first; breed detector only on each detected dog's crop.
-Dog boxes stay even when the breed prediction is missing (`breed unknown`).
-Possible breed labels are predictions and can be wrong, including on mixed breeds.
+Only dog IDs (such as `Dog #1`) are rendered on the video. The **Dog statistics**
+section under the preview lists each matching ID and its final non-unknown voted
+breed, or `Breed unknown`. Confirmed dog boxes stay even when breed is unknown.
+Possible breeds and tracking identities can be wrong, including on mixed breeds.
+Statistics are temporary app/API metadata, not embedded in the downloaded MP4
+or saved as an annotation file. Save any information you need before starting over.
+Previously rendered videos cannot have their old burned-in breed text removed;
+analyze them again after updating the server and APK.
 
 ## Troubleshooting
 

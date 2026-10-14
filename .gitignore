@@ -18,6 +18,10 @@ node_modules/
 dist/
 backend/runtime/
 backend/assets/*.pt
+backend/assets/*.pth
+backend/.depth-venv/
+backend/third_party/ml-depth-pro/
+backend/assets/*.partial
 mobile/android/
 mobile/ios/
 mobile/.env

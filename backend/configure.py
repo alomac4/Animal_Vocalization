@@ -29,9 +29,19 @@ breed_digest = hashlib.sha256(breed_source.read_bytes()).hexdigest()
 if breed_digest != hashlib.sha256(breed_weights.read_bytes()).hexdigest():
     raise RuntimeError("Breed serving snapshot checksum mismatch")
 config = json.loads(config_path.read_text(encoding="utf-8")) if config_path.exists() else {"token": secrets.token_urlsafe(36)}
+upscaler_weights = assets / "realesr-general-x4v3.pth"
+if upscaler_weights.is_file():
+    config.update(upscaler_weights=str(upscaler_weights), upscaler_tile=192)
 config.update(weights=str(weights), inference_python=str(ROOT / ".venv/Scripts/python.exe"),
+              distance_enabled=False, distance_focal_mm=26.0, distance_dog_extent_m=.65,
+              distance_backend="depth_pro", depth_python=str(ROOT / "backend/.depth-venv/Scripts/python.exe"),
+              depth_weights=str(assets / "depth_pro.pt"), process_timeout_seconds=1200,
               model_label="GPU: trained dog detector + breed detector on dog crops",
-              device="cuda:0", imgsz=960, source_weights=str(source), weights_sha256=digest,
+              device="cuda:0", imgsz=1536, breed_imgsz=960, breed_batch=4, crop_upscale=4.0, half=True,
+              dog_batch=1, upscaler_batch=8, track_link_seconds=6,
+               track_reconnect_seconds=15, track_presence_seconds=3, track_presence_ratio=.05, track_clip_presence_ratio=.03, tracker_backend="ocsort",
+              dog_conf=.25, track_high_conf=.5, track_new_conf=.6, track_min_hits=3, track_buffer_seconds=3,
+              source_weights=str(source), weights_sha256=digest,
               breed_weights=str(breed_weights), breed_conf=0.25,
               breed_source_weights=str(breed_source), breed_weights_sha256=breed_digest)
 config_path.write_text(json.dumps(config, indent=2), encoding="utf-8")
